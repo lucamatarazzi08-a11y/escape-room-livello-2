@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Monte Cieco · Livello 2 · L'Armadietto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600&family=Barlow:wght@400;500;700&family=Staatliches&display=swap">
+<style>
+/* ================================================================
+   LIVELLO 2 · L'ARMADIETTO  ·  versione 2
+   Pelle grafica: officina — lamiera, giallo sicurezza, viti.
+   Struttura: armadietto a tre sportelli + verbale di collaudo.
+   ================================================================ */
+:root{
+ color-scheme:dark;
+ --steel:#1e2427;--steel2:#252c2f;
+ --plate:#343d41;--plate2:#2b3336;
+ --ink:#e9edee;--ink2:#a0abae;--ink3:#768286;
+ --line:#465156;--line2:#5a666b;
+ --yellow:#f2c200;--yellow2:#ffd633;--red:#d63b2f;--green:#4bbf73;--orange:#d88324;
+ --disp:"Staatliches",Impact,sans-serif;
+ --cond:"Barlow Semi Condensed","Barlow",system-ui,sans-serif;
+ --body:"Barlow",system-ui,-apple-system,sans-serif;
+ --mono:ui-monospace,"Consolas","Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{margin:0;min-height:100%;color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.6}
+body{
+ background:
+  repeating-linear-gradient(112deg,rgba(255,255,255,.016) 0 2px,transparent 2px 7px),
+  radial-gradient(900px 520px at 50% -10%,#39444a 0,transparent 62%),
+  linear-gradient(#1e2427,#14191b);
+ background-attachment:scroll}
+main{max-width:960px;margin:0 auto;padding:16px 14px 44px}
+::selection{background:var(--yellow);color:#151a1c}
+
+/* --- testata --- */
+header{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:8px 0 16px}
+header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:8px;
+ background:repeating-linear-gradient(45deg,var(--yellow) 0 13px,#181d1f 13px 26px)}
+.logo{font-family:var(--cond);font-size:.86rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#c9d2d5}
+.logo small{color:var(--ink3);letter-spacing:.1em}
+.slots{display:flex;gap:6px}
+.slots i{width:16px;height:16px;border:1px solid var(--line2);border-radius:1px;background:#161b1d;box-shadow:inset 0 0 6px #000}
+
+/* --- nota del perito --- */
+.pin{position:relative;margin:20px 0 0;padding:16px 18px;background:linear-gradient(178deg,#f7e999,#efd876);color:#2b2410;
+ border-radius:1px;transform:rotate(-.5deg);box-shadow:0 12px 26px #00000073;font-size:.95rem;line-height:1.55}
+.pin b{color:#1f1a08}
+.pin::before,.pin::after{content:"";position:absolute;top:-7px;width:11px;height:11px;border-radius:50%;
+ background:radial-gradient(circle at 35% 30%,#fdfdfd,#8b9498 60%,#4a5357);box-shadow:0 2px 4px #00000066}
+.pin::before{left:24px}.pin::after{right:24px}
+
+/* --- armadietto --- */
+.cabinet{position:relative;background:linear-gradient(168deg,#3a4449,#262e32);border:1px solid #4f5a5f;border-radius:3px;
+ margin-top:22px;padding:15px;box-shadow:0 28px 60px #000000a6,inset 0 1px 0 #ffffff1f}
+.cabinet::before{content:"";position:absolute;inset:0;border-radius:3px;pointer-events:none;
+ background:
+  radial-gradient(circle at 10px 10px,#93a0a4 1.5px,#4c5659 2.6px,transparent 3.6px),
+  radial-gradient(circle at calc(100% - 10px) 10px,#93a0a4 1.5px,#4c5659 2.6px,transparent 3.6px),
+  radial-gradient(circle at 10px calc(100% - 10px),#93a0a4 1.5px,#4c5659 2.6px,transparent 3.6px),
+  radial-gradient(circle at calc(100% - 10px) calc(100% - 10px),#93a0a4 1.5px,#4c5659 2.6px,transparent 3.6px)}
+
+/* --- sportelli / schede --- */
+.plates{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;position:relative;z-index:1}
+.plate{position:relative;text-align:left;background:linear-gradient(170deg,#39434a,#242c30);color:#cfd7d9;
+ border:1px solid #4b565b;border-radius:2px;padding:11px 12px 12px;font-family:var(--cond);cursor:pointer;
+ box-shadow:inset 0 1px 0 #ffffff1a,0 4px 10px #00000059;transition:border-color .2s,box-shadow .2s,transform .12s}
+.plate:hover:not([disabled]){border-color:#7d8a8f;transform:translateY(-1px)}
+.plate .pnum{display:block;font-family:var(--disp);font-size:1.5rem;line-height:1;color:#94a1a5;letter-spacing:.06em}
+.plate .plab{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;margin-top:4px;color:#b9c3c6}
+.plate .led{position:absolute;top:10px;right:10px;width:9px;height:9px;border-radius:50%;background:#0d1113;
+ box-shadow:inset 0 0 4px #000,0 0 0 1px #5b666b;transition:background .3s,box-shadow .3s}
+.plate[aria-selected="true"]{border-color:var(--yellow);box-shadow:0 0 0 1px #f2c20055,0 0 26px #f2c2001f,inset 0 1px 0 #ffffff26}
+.plate[aria-selected="true"] .led{background:var(--yellow2);box-shadow:0 0 10px #ffd633cc}
+.plate.done .led{background:var(--green);box-shadow:0 0 10px #4bbf73b3}
+.plate[disabled]{opacity:.5;cursor:not-allowed;filter:saturate(.35)}
+.plate[disabled] .plab::after{content:"bloccato";display:block;font-size:.6rem;letter-spacing:.1em;color:#8b979b;margin-top:2px}
+
+@media(max-width:640px){.plates{grid-template-columns:repeat(3,1fr)}}
+.pick{width:100%;background:#14191b;color:#fff;border:1px solid #4a5559;border-radius:2px;padding:7px 5px;font-family:var(--mono);font-size:.74rem;margin-top:2px}
+.post{background:#1b2225;border:1px solid #3a4448;border-radius:2px;padding:10px 13px;margin:8px 0;font-size:.93rem}.post small{display:block;color:var(--ink3);font-size:.72rem;margin-top:3px}
+.rqrow{margin:10px 0}.rqrow label{display:block;font-family:var(--cond);font-size:.82rem;letter-spacing:.06em;color:#dfe6e8;margin-bottom:3px}.rqrow input{width:100%;font-family:var(--body);font-size:1rem;background:#14191b;color:#fff;border:2px solid #4a5559;border-radius:2px;padding:10px 12px;outline:none}.rqrow input:focus{border-color:var(--yellow)}
+.sitem{background:#212a2d;border:1px solid #3d474b;border-radius:2px;padding:11px 13px;margin:8px 0}.sitem.right{border-color:var(--green);background:#16241c}.sitem .sb{display:flex;gap:8px;margin-top:8px}.sitem p{margin:0}.sitem .ex{margin-top:8px;font-size:.9rem;color:var(--ink2)}
+/* --- banco di lavoro --- */
+.bench{position:relative;z-index:1;margin-top:13px;background:#232b2f;border:1px solid #414b4f;border-radius:2px;padding:16px 15px 18px}
+.benchHead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;
+ border-bottom:1px solid #414b4f;padding-bottom:9px;margin-bottom:14px}
+.benchHead .bh1{font-family:var(--cond);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3)}
+.benchHead .bh2{font-family:var(--disp);font-size:1.25rem;letter-spacing:.05em;text-transform:uppercase;color:var(--yellow)}
+
+h1{font-family:var(--disp);font-weight:400;font-size:2.1rem;letter-spacing:.04em;text-transform:uppercase;margin:0 0 8px;color:#f5f7f7;line-height:1.1}
+h2{font-family:var(--disp);font-weight:400;font-size:1.45rem;letter-spacing:.05em;text-transform:uppercase;color:var(--yellow);margin:0 0 10px;display:flex;align-items:center;gap:9px}
+h2::before{content:"";width:10px;height:10px;background:var(--yellow);flex:0 0 auto}
+p{line-height:1.6;margin:.5em 0}
+b,strong{color:#fff}
+.dim{color:var(--ink2)}
+.mono{font-family:var(--mono);font-size:.9em}
+
+/* --- pulsanti --- */
+button,.btn{font-family:var(--disp);font-size:1rem;letter-spacing:.06em;text-transform:uppercase;
+ background:var(--yellow);color:#151a1c;border:0;border-radius:2px;padding:11px 18px;cursor:pointer;text-decoration:none;display:inline-block;
+ box-shadow:0 3px 0 #00000066,inset 0 1px 0 #ffffff66;transition:transform .08s,box-shadow .08s,background .15s}
+button:hover,.btn:hover{background:var(--yellow2)}
+button:active,.btn:active{transform:translateY(3px);box-shadow:0 0 0 #00000066,inset 0 1px 0 #ffffff44}
+button:disabled{opacity:.32;pointer-events:none}
+button.ghost{background:transparent;color:var(--ink);border:1px solid var(--line2);box-shadow:none}
+button.ghost:hover{background:#ffffff10;color:#fff}
+button.small{font-size:.82rem;padding:7px 11px}
+.hidden{display:none!important}
+.row{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+
+/* --- campo + registro --- */
+.fieldRow{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:10px}
+@media(max-width:560px){.fieldRow{grid-template-columns:1fr}}
+.fieldRow input{width:100%;font-family:var(--body);font-size:1rem;letter-spacing:.03em;background:#14191b;color:#fff;
+ border:2px solid #4a5559;border-radius:2px;padding:12px 13px;outline:none;transition:border-color .15s,box-shadow .15s}
+.fieldRow input:focus{border-color:var(--yellow);box-shadow:0 0 0 3px #f2c20026}
+.meters{display:grid;grid-template-columns:1fr;gap:12px;margin-top:16px}
+@media(min-width:720px){.meters{grid-template-columns:1fr 1fr}}
+.meter{background:#1b2225;border:1px solid #394347;border-radius:2px;padding:11px 13px 9px}
+.mlabel{font-family:var(--cond);text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;color:#dfe6e8;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.mlabel span{color:var(--ink3);letter-spacing:.04em;text-transform:none}
+.track{position:relative;height:11px;margin:20px 0 6px;border:1px solid #0e1214;border-radius:2px;
+ background:linear-gradient(90deg,#8c2a22 0 26%,#a4551c 26% 46%,#a08a10 46% 68%,#2f7a4a 68% 100%)}
+.needle{position:absolute;top:-8px;width:3px;height:27px;background:#fff;border-radius:1px;
+ box-shadow:0 0 10px #ffffffcc,0 0 2px #000;transition:left .3s ease,background .3s}
+.read{font-family:var(--disp);font-size:1.45rem;letter-spacing:.03em;color:#f3f6f7;min-height:1.35em}
+.read small{font-family:var(--cond);font-size:.7rem;letter-spacing:.1em;color:var(--ink3);display:block;text-transform:uppercase}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-family:var(--cond);font-size:.74rem;
+ letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:1px;display:inline-block}
+.verdict{font-family:var(--cond);font-size:.96rem;line-height:1.5;margin-top:12px;padding:9px 12px;
+ background:#1a2124;border:1px solid #394346;border-left:3px solid var(--ink3);border-radius:2px;color:var(--ink)}
+.verdict.ok{border-left-color:var(--green);background:#16241c;color:#c9f0d8}
+.verdict.bad{border-left-color:var(--red);background:#241618;color:#ffd0cb}
+.hint{margin-top:12px;padding:10px 13px;background:#241f10;border:1px solid #4a3f1c;border-left:3px solid var(--yellow);
+ border-radius:2px;font-family:var(--cond);font-size:.92rem;color:#f0e2b0}
+.logHead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:18px 0 7px}
+.logHead h3{font-family:var(--cond);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);margin:0}
+table.log{width:100%;border-collapse:collapse;font-size:.82rem}
+table.log th{font-family:var(--cond);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);
+ text-align:left;padding:5px 7px;border-bottom:1px solid #3c4649;font-weight:600}
+table.log td{padding:6px 7px;border-bottom:1px solid #2f383b;color:var(--ink2)}
+table.log td.mono{color:#fff;font-size:.8rem;max-width:200px;overflow-wrap:anywhere}
+table.log tr.ok td{color:#bdf0cf}
+table.log tr.ok td:last-child{color:var(--green);font-weight:700}
+table.log td.empty{padding:10px 7px;color:var(--ink3);font-style:italic}
+@media(max-width:600px){
+ table.log thead{display:none}
+ table.log tr{display:flex;flex-wrap:wrap;gap:2px 9px;padding:8px 0;border-bottom:1px solid #2f383b}
+ table.log td{border:0;padding:0}
+ table.log td.mono{flex:1 0 100%;max-width:none;font-size:.84rem;color:#fff}
+ table.log td:nth-child(2),table.log td:nth-child(3){font-size:.72rem;color:var(--ink3)}
+ table.log td:nth-child(2)::before{content:"forza bruta "}
+ table.log td:nth-child(3)::before{content:"· dizionario "}
+ table.log td:nth-child(4){font-size:.72rem;margin-left:auto;color:var(--ink2)}
+}
+
+/* --- spiegazione (perché) --- */
+.why{background:#1b2225;border:1px solid #3a4448;border-radius:2px;padding:13px 15px;margin-top:4px}
+.why h3{font-family:var(--cond);font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--yellow);margin:0 0 8px}
+.why ol{margin:0;padding-left:1.2em}
+.why li{margin:.45em 0;line-height:1.55;font-size:.94rem}
+
+/* --- sportelli account --- */
+.mstatus{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-family:var(--cond);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.mstatus b{color:#fff;letter-spacing:.02em}
+.accts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+@media(min-width:700px){.accts{grid-template-columns:repeat(4,1fr)}}
+.acct{position:relative;background:linear-gradient(170deg,#414b50,#2b3336);border:1px solid #515c61;border-radius:2px;
+ padding:11px 11px 12px;box-shadow:inset 0 1px 0 #ffffff1a,0 6px 14px #00000059;transition:border-color .35s,box-shadow .35s}
+.acctTop{display:flex;align-items:center;gap:6px;font-family:var(--cond);font-weight:600;font-size:.78rem;
+ letter-spacing:.1em;text-transform:uppercase;color:#d3dbdd}
+.acctTop .ico{color:var(--yellow)}
+.acctUser{font-family:var(--mono);font-size:.64rem;color:var(--ink3);margin:5px 0 7px;overflow-wrap:anywhere}
+.acctPw{font-family:var(--mono);font-size:.82rem;font-weight:700;background:#f6e07c;color:#2b2410;
+ padding:5px 7px;border-radius:1px;overflow-wrap:anywhere;transform:rotate(-.8deg)}
+.dial{display:grid;grid-template-columns:22px 1fr 22px;gap:5px;align-items:center}
+.dbtn{width:22px;height:26px;padding:0;font-family:var(--body);font-size:.95rem;line-height:1;background:#333d41;color:#e9edee;
+ border:1px solid #4f5a5f;border-radius:2px;box-shadow:none;display:flex;align-items:center;justify-content:center}
+.dbtn:hover{background:#48545a;color:#fff}
+.dial .acctPw{transform:none;margin:0;text-align:center;min-height:2.05em;display:flex;align-items:center;justify-content:center;font-size:.74rem;line-height:1.3;padding:6px 5px;overflow-wrap:anywhere}
+.acctState{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.63rem;margin-top:7px;color:var(--ink3);line-height:1.3}
+.acctState .led{width:7px;height:7px;border-radius:50%;flex:0 0 auto;background:#6b767a;transition:background .25s,box-shadow .25s}
+.acct.good{border-color:#4bbf73aa;box-shadow:inset 0 1px 0 #ffffff1a,0 0 0 1px #4bbf7333,0 0 20px #4bbf731f}
+.acct.good .acctState{color:#a8f0c9}
+.acct.good .acctState .led{background:var(--green);box-shadow:0 0 8px #4bbf73aa}
+.acct.bad .acctState{color:#ffc9c4}
+.acct.bad .acctState .led{background:var(--red);box-shadow:0 0 8px #d63b2fa6}
+.acct.dup{border-color:var(--red);box-shadow:inset 0 1px 0 #ffffff1a,0 0 0 1px #d63b2f66,0 0 22px #d63b2f2e}
+.acct.dup .acctPw{background:#e8a29a}
+.acct .flag{display:none;position:absolute;top:-8px;right:-6px;font-family:var(--disp);font-size:.6rem;letter-spacing:.08em;
+ background:var(--red);color:#fff;padding:2px 6px;border-radius:1px;transform:rotate(3deg);z-index:2}
+.acct.dup .flag{display:block}
+.acct.locked .dbtn{opacity:.35;pointer-events:none}
+
+/* --- decisione --- */
+label.op{display:block;background:#212a2d;border:1px solid #3d474b;border-radius:2px;padding:11px 13px;margin:7px 0;
+ cursor:pointer;transition:border-color .15s,background .15s,transform .1s;font-size:.95rem}
+label.op:hover{border-color:#f2c200aa;background:#283235;transform:translateX(2px)}
+.op.right{border-color:var(--green);background:#16241c;box-shadow:inset 0 0 0 1px #4bbf7333}
+.op.wrong{border-color:var(--red);background:#241618;opacity:.85}
+.fb{margin-top:12px;padding:12px 14px;border-radius:2px;background:#20282b;border:1px solid #3c4649;
+ border-left:3px solid var(--orange);line-height:1.55;font-size:.94rem}
+.fb.g{background:#16241c;border-color:#2c4a36;border-left-color:var(--green)}
+.fb.b{background:#241618;border-color:#4a2a2c;border-left-color:var(--red)}
+.fb a{color:var(--yellow2)}
+
+/* --- domande 2FA --- */
+.qhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.qhead h3{font-family:var(--cond);font-weight:600;font-size:1.06rem;margin:0;color:#fff}
+.qhead .qnum{font-family:var(--mono);font-size:.72rem;color:var(--ink3)}
+.dots{display:flex;gap:6px;margin:0 0 12px}
+.dots i{width:22px;height:4px;background:#3c4649;border-radius:1px}
+.dots i.on{background:var(--yellow)}
+.dots i.ok{background:var(--green)}
+.readEx{background:#1b2225;border:1px solid #3a4448;border-left:3px solid var(--yellow);border-radius:2px;padding:14px 16px}
+.readEx ul{padding-left:1.1em;margin:.5em 0}
+.readEx li{margin:.5em 0;font-size:.94rem;line-height:1.55}
+.readEx .em{color:#fff;font-weight:600}
+
+/* --- verbale (foglio chiaro) --- */
+.sheet{position:relative;margin-top:22px;background:linear-gradient(#fbfcfa,#eceeeb);color:#222a2d;border:1px solid #c9d0cc;
+ border-radius:2px;padding:26px 24px 24px;box-shadow:0 28px 60px #000000a6,inset 0 0 0 1px #ffffff}
+.sheet::after{content:"";position:absolute;inset:9px;border:1px dashed #b9c1bd;border-radius:1px;pointer-events:none}
+.sheet .kick{font-family:var(--cond);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:#6f7a76}
+.sheet h1{font-family:var(--disp);color:#161c1f;font-size:1.9rem;margin:4px 0 6px}
+.sheet h2{font-family:var(--disp);color:#161c1f;font-size:1.15rem;margin:22px 0 8px;letter-spacing:.06em}
+.sheet h2::before{background:#161c1f;width:8px;height:8px}
+.sheet .meta{font-family:var(--cond);font-size:.85rem;letter-spacing:.04em;color:#5d6a66;margin:0 0 6px}
+.sheet p{color:#2c3538}
+.sheet b{color:#111}
+.sheet .findings{margin:0;padding:0;list-style:none;counter-reset:f}
+.sheet .findings li{position:relative;padding:9px 0 9px 34px;border-bottom:1px solid #d5dad6;font-size:.95rem;line-height:1.55}
+.sheet .findings li:last-child{border-bottom:0}
+.sheet .findings li::before{counter-increment:f;content:counter(f,decimal-leading-zero);position:absolute;left:0;top:9px;
+ font-family:var(--mono);font-size:.78rem;color:#7d8985;border:1px solid #b9c1bd;padding:1px 4px;border-radius:1px}
+.sheet .code{font-family:var(--disp);font-size:1.7rem;letter-spacing:.18em;text-indent:.18em;color:var(--yellow);
+ background:#1b2225;border-radius:2px;padding:14px;text-align:center;margin:12px 0 14px;box-shadow:inset 0 1px 0 #ffffff1a}
+.sheet .src{font-family:var(--cond);font-size:.78rem;color:#5d6a66;border-top:1px dashed #b9c1bd;margin-top:16px;padding-top:10px}
+.sheet .btn{box-shadow:0 3px 0 #00000040,inset 0 1px 0 #ffffff66}
+.stamp{position:absolute;top:22px;right:20px;transform:rotate(9deg);border:3px double #2f7a4a;color:#2f7a4a;
+ font-family:var(--disp);font-size:1rem;letter-spacing:.16em;padding:4px 10px;border-radius:2px;opacity:.75}
+@media(max-width:520px){.stamp{position:static;transform:rotate(-2deg);display:inline-block;margin-bottom:10px}}
+
+.foot{font-family:var(--cond);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);text-align:center;margin-top:18px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body data-version="Monte Cieco · Livello 2 · versione 4">
+<!-- versione 3 · stile «Officina» · sportelli + tamburi + 6 domande -->
+<main>
+<header>
+ <div class="logo">◉ OSSERVATORIO DI MONTE CIECO</div>
+ <div class="slots" title="Frammenti della chiave"><i></i><i></i><i></i><i></i><i></i></div>
+</header>
+
+<p class="pin"><b>Nota del perito.</b> L'archivio tiene, ma qualcuno ha provato ad aprire l'armadietto. Dentro ci sono le credenziali di Elia: posta, banca, social, scuola. Due sportelli hanno la stessa password, e uno dei due siti è già stato violato. Finché resta così, l'intruso può rientrare quando vuole. Apri uno sportello alla volta.</p>
+
+<section class="cabinet">
+ <div class="plates" role="tablist" aria-label="Sportelli dell'armadietto">
+  <button class="plate" id="t0" role="tab" aria-selected="true" aria-controls="p0"><span class="pnum">01</span><span class="plab">Cracker</span><i class="led"></i></button>
+  <button class="plate" id="t1" role="tab" aria-selected="false" aria-controls="p1" disabled><span class="pnum">02</span><span class="plab">Unicità</span><i class="led"></i></button>
+  <button class="plate" id="t2" role="tab" aria-selected="false" aria-controls="p2" disabled><span class="pnum">03</span><span class="plab">Recupero</span><i class="led"></i></button>
+  <button class="plate" id="t3" role="tab" aria-selected="false" aria-controls="p3" disabled><span class="pnum">04</span><span class="plab">Gestore</span><i class="led"></i></button>
+  <button class="plate" id="t4" role="tab" aria-selected="false" aria-controls="p4" disabled><span class="pnum">05</span><span class="plab">2FA</span><i class="led"></i></button>
+ </div>
+
+ <!-- ========== SPORTELLO 01 ========== -->
+ <div class="bench" id="p0" role="tabpanel" aria-labelledby="t0">
+  <div class="benchHead"><span class="bh1">Sportello 01</span><span class="bh2">Il cracker</span></div>
+  <p class="dim">Questo è un archivio di password rubate. Il programma le prova al ritmo di <b>10 miliardi al secondo</b>. Scrivi una password <b>inventata</b> e leggi quanto resiste ai due attacchi: forza bruta (tutte le combinazioni) e dizionario (le password più diffuse, con le loro varianti).</p>
+  <div class="fieldRow">
+   <input id="pw" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="64" placeholder="Scrivi una password inventata…" aria-label="Password inventata">
+   <button id="an">Analizza</button>
+  </div>
+  <div class="meters">
+   <div class="meter">
+    <div class="mlabel">Forza bruta <span>tutte le combinazioni</span></div>
+    <div class="track"><i class="needle" id="n1" style="left:0"></i></div>
+    <div class="read" id="r1">—<small>tempo stimato</small></div>
+   </div>
+   <div class="meter">
+    <div class="mlabel">Dizionario <span>le più usate, con varianti</span></div>
+    <div class="track"><i class="needle" id="n2" style="left:0"></i></div>
+    <div class="read" id="r2">—<small>tempo stimato</small></div>
+   </div>
+  </div>
+  <div class="legend">
+   <span><i style="background:#ff5d5d"></i>secondi / ore / giorni</span>
+   <span><i style="background:#ffd633"></i>anni</span>
+   <span><i style="background:#7dffb0"></i>oltre 100 anni · passa</span>
+  </div>
+  <div class="verdict" id="verdict">Serve una password che regga <b>entrambi</b> gli attacchi per almeno 100 anni.</div>
+  <div class="hint hidden" id="hint"></div>
+  <details class="why" style="margin-top:12px"><summary style="cursor:pointer;font-family:var(--cond);letter-spacing:.1em;text-transform:uppercase;font-size:.8rem;color:var(--yellow)">Come calcoliamo questi tempi</summary><ol style="margin-top:10px"><li><b>Forza bruta:</b> si contano le combinazioni possibili (dipendono da lunghezza e tipi di caratteri), si dividono per 2 (in media la password si trova a metà strada) e per la velocità: 10 miliardi di tentativi al secondo.</li><li><b>Scenario:</b> l'attaccante ha rubato l'elenco delle password cifrate e le prova sul suo computer, senza blocchi. È il caso peggiore: un sito serio usa cifrature lente e blocca dopo pochi errori, quindi nella realtà i tempi sono spesso più lunghi.</li><li><b>Dizionario:</b> si provano per primi parole, nomi, anni e varianti (la «a» diventa 4 o @). Contano solo le parti prevedibili: il resto va comunque indovinato a forza bruta. Una password fatta solo di parti prevedibili cade in pochi secondi; un nome seguito da tanti caratteri casuali resta lungo da trovare.</li><li><b>Frasi di parole:</b> contiamo 10.000 parole possibili per ogni parola. Vale solo se le parole sono scelte davvero a caso.</li><li>Sono <b>stime didattiche</b>, non previsioni precise.</li></ol></details>
+  <div class="logHead"><h3>Registro prove</h3><span class="dim" style="font-size:.78rem">Invio per registrare</span></div>
+  <table class="log"><thead><tr><th>Password</th><th>Forza bruta</th><th>Dizionario</th><th>Esito</th></tr></thead><tbody id="log"><tr><td colspan="4" class="empty">Nessuna prova registrata.</td></tr></tbody></table>
+  <div id="pass1" class="fb g hidden"><b>Prova registrata.</b> Questa password regge entrambi gli attacchi. Ma il problema non è solo la forza: guarda l'armadietto.<div class="row"><button id="to2">Sportello 02 →</button></div></div>
+ </div>
+  <!-- ========== SPORTELLO 02 ========== -->
+  <div class="bench hidden" id="p1" role="tabpanel" aria-labelledby="t1">
+   <div class="benchHead"><span class="bh1">Sportello 02</span><span class="bh2">Una password per sito</span></div>
+   <div class="why">
+    <h3>Perché ogni sito deve avere la sua password</h3>
+    <ol>
+     <li><b>Un sito conserva la tua password.</b> Se viene violato, l'elenco di email e password finisce nelle mani degli attaccanti.</li>
+     <li><b>L'attaccante non si ferma lì.</b> Prova la stessa coppia email + password su banca, posta, social: è il <b>credential stuffing</b>.</li>
+     <li><b>La password riusata è un ponte.</b> Con una password sola, una fuga ne fa cadere due. Con password diverse, cade solo il sito violato.</li>
+    </ol>
+   </div>
+   <p class="dim" style="margin-top:14px">Ecco quattro account di Elia. Per ognuno scegli una password dall'elenco: deve reggere ai due attacchi e <b>non può essere uguale a un'altra</b>. Attenzione: alcune sembrano difficili ma non lo sono. Se due account hanno la stessa password, il <b>ponte</b> si accende in rosso.</p>
+   <div class="accts" id="accts"></div>
+   <div class="mstatus" id="status"></div>
+   <div id="p2fb"></div>
+   <div class="hint hidden" id="hint2"></div>
+  </div>
+
+<!-- ========== SPORTELLO 03 · RECUPERO ========== -->
+ <div class="bench hidden" id="p2" role="tabpanel" aria-labelledby="t2">
+  <div class="benchHead"><span class="bh1">Sportello 03</span><span class="bh2">Le domande segrete</span></div>
+  <div class="why"><h3>Prima di giocare: perché sono un punto debole</h3><ol>
+   <li>Se dimentichi la password, molti siti ti fanno una domanda come «Come si chiamava il tuo primo animale?».</li>
+   <li>Se la risposta si trova sui social, chiunque può aggirare la password senza doverla indovinare.</li>
+   <li>Una risposta vera è come una seconda password che però tutti possono scoprire.</li></ol></div>
+  <p class="dim" style="margin-top:14px">Questo è il profilo pubblico di Elia. Usa solo quello che trovi qui per rispondere alle domande di recupero dell'account Poste.</p>
+  <div class="post">🐱 Oggi Briciola compie 6 anni! La mia gatta, la prima che ho avuto tutta per me.<small>@elia.rossi · 12 marzo</small></div>
+  <div class="post">📚 Nostalgia: primo giorno di scuola al Liceo Galilei. Sembra ieri.<small>@elia.rossi · 9 settembre</small></div>
+  <div class="post">🏡 Weekend dai nonni, a Faenza, dove sono nata. Il posto più bello del mondo.<small>@elia.rossi · 2 giugno</small></div>
+  <div class="rqrow"><label for="rq0">Nome del tuo primo animale?</label><input id="rq0" autocomplete="off"></div>
+  <div class="rqrow"><label for="rq1">In quale città sei nata?</label><input id="rq1" autocomplete="off"></div>
+  <div class="rqrow"><label for="rq2">Nome della tua scuola superiore?</label><input id="rq2" autocomplete="off"></div>
+  <div class="row"><button id="rcheck">Recupera l'account</button></div>
+  <div id="rfb"></div>
+ </div>
+
+ <!-- ========== SPORTELLO 04 · GESTORE ========== -->
+ <div class="bench hidden" id="p3" role="tabpanel" aria-labelledby="t3">
+  <div class="benchHead"><span class="bh1">Sportello 04</span><span class="bh2">Dove tieni le password</span></div>
+  <div class="why"><h3>Prima di giocare: il gestore di password</h3><ol>
+   <li>Nessuno può ricordare decine di password lunghe, casuali e tutte diverse. Per questo esiste il <b>gestore di password</b>: un programma che le conserva cifrate.</li>
+   <li>Tu ricordi <b>una sola</b> password, quella principale: lunga, unica, mai usata altrove.</li>
+   <li>Il gestore può generare password casuali e compila i moduli solo sul sito vero: questo aiuta anche contro il phishing.</li></ol></div>
+  <p class="dim" style="margin-top:14px">Per ognuna di queste situazioni, decidi se è <b>sicura</b> o <b>rischiosa</b>.</p>
+  <div id="stor"></div><div id="sfb"></div>
+ </div>
+
+<!-- ========== SPORTELLO 05 · 2FA ========== -->
+ <div class="bench hidden" id="p4" role="tabpanel" aria-labelledby="t4">
+  <div class="benchHead"><span class="bh1">Sportello 05</span><span class="bh2">La seconda serratura</span></div>
+  <div id="expl">
+   <div class="readEx">
+    <h3 style="font-family:var(--cond);font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--yellow);margin:0 0 8px">Prima di rispondere, leggi come funziona</h3>
+    <p style="margin-top:0">La password è <span class="em">qualcosa che sai</span>. Se te la rubano, da sola non protegge più niente: l'attaccante la conosce come te.</p>
+    <p>La <span class="em">verifica a due fattori</span> (2FA) aggiunge un secondo elemento, di tipo diverso:</p>
+    <ul>
+     <li><b>qualcosa che hai</b> — il telefono con l'app, una chiave fisica;</li>
+     <li><b>qualcosa che sei</b> — impronta o volto.</li>
+    </ul>
+    <p>Con la 2FA attiva, chi ha la password ma non il secondo fattore <span class="em">non entra</span>.</p>
+    <p style="margin-bottom:0">I metodi non valgono tutti uguale: il codice via SMS si può intercettare o farsi dettare da un sito finto; l'app a tempo è meglio; la <span class="em">chiave fisica o passkey</span> è la più solida, perché controlla il sito vero prima di rispondere. E se perdi il telefono? Servono i <span class="em">codici di recupero</span>, da salvare prima.</p>
+   </div>
+   <div class="row"><button id="capito">Ho capito, alle domande →</button></div>
+  </div>
+
+  <div id="qwrap" class="hidden">
+   <div class="qhead"><h3 id="qh"></h3><span class="qnum" id="qn"></span></div>
+   <div class="dots" id="dots"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+   <div id="opts3"></div>
+   <div id="fq"></div>
+  </div>
+ </div>
+</section>
+
+<!-- ========== VERBALE ========== -->
+<section id="report" class="sheet hidden">
+ <div class="stamp">collaudo superato</div>
+ <div class="kick">Osservatorio di Monte Cieco · verbale di collaudo</div>
+ <h1>Armadietto in sicurezza</h1>
+ <p class="meta">Livello 2 · credenziali di Elia · esito: conforme</p>
+ <h2>Cosa hai imparato</h2>
+ <ol class="findings">
+  <li><b>La lunghezza batte la complicazione.</b> Cinque parole scelte a caso resistono molto più di <i>Elia1985!</i>, che sembra difficile ma si scompone in un nome e un anno.</li>
+  <li><b>Gli attaccanti non provano a caso.</b> Prima usano le password più diffuse, i nomi, gli anni e le varianti con simboli: <i>Password123</i> cade in un secondo anche se è lunga.</li>
+  <li><b>Una password per sito.</b> La password riusata è un ponte: una sola fuga di dati ne fa cadere due. Con password diverse cade solo il sito violato.</li>
+  <li><b>Il gestore di password serve a questo.</b> Genera password diverse e lunghe e le ricorda lui: tu devi ricordarne solo una, quella del gestore.</li>
+  <li><b>La 2FA regge anche se la password è rubata.</b> Ma il secondo fattore va scelto bene (chiave o passkey meglio dell'SMS) e i codici di recupero vanno salvati prima di averne bisogno.</li>
+  <li><b>Le domande segrete sono una porta aperta.</b> Se la risposta è sui social, non serve indovinare la password. Si risponde con un dato falso, conservato in un posto sicuro.</li>
+  <li><b>Un gestore al posto della memoria.</b> Una sola password principale, lunga e unica; tutte le altre le genera e le ricorda lui. File di testo, post-it e note senza blocco sono scorciatoie pericolose.</li>
+ </ol>
+ <h2>Codice di sblocco</h2>
+ <div class="code">ARMADIETTO-2</div>
+ <a class="btn" id="lock" href="#" target="_blank" rel="noopener">Apri la serratura →</a>
+ <p id="warn" class="dim hidden" style="color:#8a4b3a">(Link del Modulo non ancora inserito)</p>
+ <p class="src">Per approfondire: NIST SP 800-63B (linee guida su password e autenticazione), CISA (verifica a due fattori), ACN – Agenzia per la Cybersicurezza Nazionale (acn.gov.it).</p>
+</section>
+
+</main>
+
+<script>
+// ====== DA MODIFICARE: link del Google Modulo del Livello 2 ======
+const FORM_URL = "https://forms.gle/ZiN7Y3GMRvoBHQX46";
+// ===============================================================
+const $ = id => document.getElementById(id);
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+
+/* ---------------- sportelli ---------------- */
+const solved = [false, false, false, false, false];
+function go(i){
+  if (i > 0 && !solved[i-1]) return;
+  for (let k = 0; k < 5; k++){
+    $("p"+k).classList.toggle("hidden", k !== i);
+    $("t"+k).setAttribute("aria-selected", k === i ? "true" : "false");
+  }
+  scrollTo(0,0);
+}
+function unlock(i){
+  solved[i] = true;
+  $("t"+i).classList.add("done");
+  if (i < 4) $("t"+(i+1)).disabled = false;
+}
+for (let k = 0; k < 5; k++) $("t"+k).onclick = () => go(k);
+$("to2").onclick = () => go(1);
+
+/* ---------------- stima della forza ---------------- */
+const RATE = 1e10;
+const YEAR = 31557600;
+const TARGET = 100 * YEAR;
+const WORDS = 10000;
+
+const COMMON = ["password","123456","12345678","123456789","qwerty","abc123","ciao","amore","juventus","milan",
+ "napoli","roma","italia","marco","luca","alessia","famiglia","calcio","scuola","admin","iloveyou","sole",
+ "luna","stella","elia","segreta","paperino","topolino","batman","ferrari","bianchi","rossi",
+ "casa","mare","gatto","cane","amico","pizza","mamma","giallo","verde","fiore","libro","musica","banca","poste"];
+
+function classesOf(p){
+  let n = 0;
+  if (/[a-z]/.test(p)) n += 26;
+  if (/[A-Z]/.test(p)) n += 26;
+  if (/[0-9]/.test(p)) n += 10;
+  if (/[^A-Za-z0-9]/.test(p)) n += 32;
+  return n || 26;
+}
+const LEET = {"0":"o","1":"i","3":"e","4":"a","5":"s","7":"t","@":"a","$":"s"};
+const decode = t => t.split("").map(ch => LEET[ch] || ch).join("");
+/* Parte prevedibile (nomi, parole comuni, anni, sequenze): l'attaccante la prova a colpo sicuro,
+   e il resto lo deve indovinare a forza bruta. Più resta da indovinare, più tempo serve. */
+function dictInfo(p){
+  let rest = p, d = decode(p.toLowerCase()), why = [], hit = false;
+  for (;;){
+    let found = false;
+    for (const c of COMMON){
+      const i = d.indexOf(c);
+      if (i >= 0){
+        rest = rest.slice(0, i) + rest.slice(i + c.length);
+        d = d.slice(0, i) + d.slice(i + c.length);
+        found = true; hit = true;
+        const m = "contiene un nome o una parola molto diffusa, anche con sostituzioni";
+        if (!why.includes(m)) why.push(m);
+        break;
+      }
+    }
+    if (!found) break;
+  }
+  let m;
+  if ((m = rest.match(/(19|20)\d{2}/))){ rest = rest.replace(m[0], ""); hit = true; why.push("contiene un anno"); }
+  if ((m = rest.match(/1234|abcd|qwer|asdf|0000/i))){ rest = rest.replace(m[0], ""); hit = true; why.push("sequenza facile da indovinare"); }
+  if (/^(.)\1+$/.test(p)){ hit = true; rest = ""; why.push("caratteri ripetuti"); }
+  const cost = hit ? 1e6 * Math.pow(classesOf(rest || "a"), rest.length) / (2 * RATE) : Infinity;
+  return { hit, cost, why, rest };
+}
+function estimate(p){
+  const words = p.trim().split(/\s+/).filter(Boolean);
+  if (words.length >= 2){
+    const brute = Math.pow(WORDS, words.length) / (2 * RATE), w = [];
+    const low = words.map(x => x.toLowerCase());
+    if (new Set(low).size < low.length) w.push("parole ripetute");
+    if (words.some(x => x.length < 3)) w.push("parole troppo corte");
+    const k = low.filter(x => COMMON.includes(x)).length;
+    if (k) w.push("contiene parole molto comuni");
+    let dict = brute;
+    if (k) dict = Math.min(brute, Math.pow(50, k) * Math.pow(WORDS, words.length - k) / (2 * RATE));
+    if (w.includes("parole ripetute") || w.includes("parole troppo corte")) dict = Math.min(dict, 5);
+    return { brute, dict, weak: w, isPass: true, words: words.length };
+  }
+  const brute = Math.pow(classesOf(p), p.length) / (2 * RATE), di = dictInfo(p), weak = [...di.why];
+  if (/^[a-z]+$/.test(p) && p.length < 13) weak.push("una sola parola, senza numeri né simboli");
+  if (p.length < 8) weak.push("meno di 8 caratteri");
+  return { brute, dict: Math.min(brute, di.cost), weak, isPass: false, words: 1 };
+}
+function fmt(s){
+  if (!isFinite(s) || s <= 0) return "—";
+  if (s < 1) return "istantaneo";
+  if (s < 60) return Math.round(s) + " secondi";
+  if (s < 3600) return Math.round(s/60) + " minuti";
+  if (s < 86400) return Math.round(s/3600) + " ore";
+  if (s < YEAR) return Math.round(s/86400) + " giorni";
+  const y = s / YEAR;
+  if (y < 1000) return Math.round(y) + (Math.round(y) === 1 ? " anno" : " anni");
+  if (y < 1e6) return Math.round(y/1000) + " mila anni";
+  if (y < 1e9) return (y/1e6).toFixed(1).replace(".", ",") + " milioni di anni";
+  if (y >= 1e12) return "oltre mille miliardi di anni";
+  return (y/1e9).toFixed(1).replace(".", ",") + " miliardi di anni";
+}
+function pct(s){
+  if (!isFinite(s) || s <= 0) return 0;
+  return Math.max(0, Math.min(99, (Math.log10(s) + 2) / 14 * 100));
+}
+
+/* ---------------- sportello 01 · cracker ---------------- */
+const LOG = [];
+let tries = 0, lastR = null, dirty = false;
+
+function verdictFor(p, r){
+  if (!p) return { cls:"", html:"Serve una password che regga <b>entrambi</b> gli attacchi per almeno 100 anni." };
+  if (r.brute >= TARGET && r.dict >= TARGET) return { cls:"ok", html:"✔ <b>Regge.</b> Oltre 100 anni su entrambi i fronti." };
+  if (r.brute >= TARGET) return { cls:"bad", html:`✖ <b>Prevedibile.</b> A forza bruta reggerebbe ${fmt(r.brute)}, ma il dizionario la trova in ${fmt(r.dict)}: è fatta di parole, nomi o numeri che l'attaccante prova per primi.` };
+  if (r.brute >= YEAR) return { cls:"bad", html:`✖ <b>Non basta.</b> Sembra lunga (${fmt(r.brute)} a forza bruta), ma il dizionario la trova in ${fmt(r.dict)}. Una password prevedibile crolla comunque.` };
+  if (r.isPass) return { cls:"bad", html:`✖ <b>Quasi.</b> ${r.words} parole reggono ${fmt(r.brute)}: ogni parola in più moltiplica per 10.000 lo spazio delle combinazioni. Aggiungine una.` };
+  return { cls:"bad", html:`✖ <b>Cade subito.</b> ${fmt(r.dict)} con il dizionario, ${fmt(r.brute)} a forza bruta.` };
+}
+
+function update(){
+  const p = $("pw").value;
+  const r = estimate(p);
+  lastR = r;
+  if (!p.trim()){
+    ["n1","n2"].forEach(n => { $(n).style.left = "0"; $(n).style.background = "#fff"; });
+    $("r1").innerHTML = "—<small>tempo stimato</small>";
+    $("r2").innerHTML = "—<small>tempo stimato</small>";
+    $("verdict").className = "verdict";
+    $("verdict").innerHTML = "Serve una password che regga <b>entrambi</b> gli attacchi per almeno 100 anni.";
+    return;
+  }
+  [["n1","r1",r.brute],["n2","r2",r.dict]].forEach(([n,id,sec]) => {
+    const el = $(n);
+    el.style.left = pct(sec) + "%";
+    el.style.background = sec >= TARGET ? "#7dffb0" : sec >= YEAR ? "#ffd633" : sec >= 86400 ? "#ff8a3d" : "#ff5d5d";
+    $(id).innerHTML = fmt(sec) + "<small>tempo stimato</small>";
+  });
+  const v = verdictFor(p, r);
+  $("verdict").className = "verdict" + (v.cls ? " " + v.cls : "");
+  $("verdict").innerHTML = v.html;
+  if (dirty && p.trim()) $("verdict").innerHTML += " <span class=\"dim\" style=\"font-size:.85em\">(modificata: premi Analizza)</span>";
+}
+$("pw").addEventListener("input", () => { dirty = true; update(); });
+$("pw").addEventListener("keydown", e => { if (e.key === "Enter"){ e.preventDefault(); analizza(); } });
+$("an").onclick = analizza;
+
+function analizza(){
+  const p = $("pw").value.trim();
+  if (!p) return;
+  const r = estimate(p);
+  if (!LOG.length || LOG[LOG.length-1].pw !== p){
+    tries++;
+    LOG.push({ pw:p, brute:r.brute, dict:r.dict, ok:(r.brute >= TARGET && r.dict >= TARGET) });
+    if (LOG.length > 6) LOG.shift();
+    renderLog();
+  }
+  dirty = false;
+  update();  if (tries >= 3 && !solved[0]) hint(1);
+  if (tries >= 6 && !solved[0]) hint(2);
+  if (r.brute >= TARGET && r.dict >= TARGET && !solved[0]){
+    unlock(0);
+    $("pass1").classList.remove("hidden");
+    $("hint").classList.add("hidden");
+  }
+}
+function renderLog(){
+  if (!LOG.length){ $("log").innerHTML = '<tr><td colspan="4" class="empty">Nessuna prova registrata.</td></tr>'; return; }
+  $("log").innerHTML = LOG.map(x =>
+    `<tr class="${x.ok ? "ok" : ""}"><td class="mono">${esc(x.pw)}</td><td>${fmt(x.brute)}</td><td>${fmt(x.dict)}</td><td>${x.ok ? "passa" : "no"}</td></tr>`
+  ).join("");
+}
+function hint(level){
+  const h = $("hint");
+  h.classList.remove("hidden");
+  h.innerHTML = level === 1
+    ? "Suggerimento: la lunghezza conta più dei simboli. Una frase di più parole allunga lo spazio delle combinazioni."
+    : "Suggerimento: una frase di <b>cinque parole sconnesse</b> — oggetti, animali, luoghi senza legame tra loro — supera facilmente i cento anni.";
+}
+update();
+
+/* ---------------- sportello 02 · una password per account ---------------- */
+const POOL = ["Elia1985!","Gatto!2024","Password123","Banca-Elia-7Qz!","x7$Kq2!pLm9#Vz4","Wd4!rN8$tYq2Lz","mB9#vK3@xR7!cJ5","Hf6$Zp2!nQ8#wTy","Rt5!Lc9$Vm2@Xe7"];
+const ACC = [
+ { n:"Poste", ico:"✉", user:"elia.rossi@posta.it" },
+ { n:"Banca", ico:"€", user:"elia.rossi@banca.it" },
+ { n:"Social", ico:"◎", user:"@elia.rossi" },
+ { n:"Scuola", ico:"✎", user:"elia.rossi@scuola.edu" }
+];
+const pick = ACC.map(() => "");
+let turns = 0, puzzleDone = false;
+function renderAccts(){
+  $("accts").innerHTML = ACC.map((d,i) => `
+   <div class="acct" id="ac${i}">
+    <span class="flag">stessa password</span>
+    <div class="acctTop"><span class="ico">${d.ico}</span>${d.n}</div>
+    <div class="acctUser">${d.user}</div>
+    <select class="pick" data-d="${i}" aria-label="Password per ${d.n}"><option value="">— scegli —</option>${POOL.map(p => `<option value="${esc(p)}">${esc(p)}</option>`).join("")}</select>
+    <div class="acctPw" id="ap${i}" style="margin-top:7px">non scelta</div>
+    <div class="acctState"><i class="led"></i><span id="as${i}">—</span></div>
+   </div>`).join("");
+  $("accts").onchange = e => {
+    const sel = e.target.closest(".pick");
+    if (!sel || puzzleDone) return;
+    pick[+sel.dataset.d] = sel.value;
+    turns++;
+    if (turns >= 10){
+      $("hint2").innerHTML = "Suggerimento: una password che sembra difficile ma contiene un nome, un anno o una parola seguita da simboli si scopre in fretta. Servono stringhe lunghe e senza senso, una diversa per ogni account.";
+      $("hint2").classList.remove("hidden");
+    }
+    refresh();
+  };
+  refresh();
+}
+function refresh(){
+  if (puzzleDone) return;
+  const vals = pick.slice(), dup = vals.map(() => false);
+  for (let i = 0; i < vals.length; i++)
+    for (let j = i + 1; j < vals.length; j++)
+      if (vals[i] && vals[i] === vals[j]) { dup[i] = true; dup[j] = true; }
+  let strong = 0, chosen = 0;
+  ACC.forEach((d,i) => {
+    const el = $("ac"+i);
+    if (!vals[i]){ el.className = "acct"; $("ap"+i).textContent = "non scelta"; $("as"+i).textContent = "—"; return; }
+    chosen++;
+    const r = estimate(vals[i]), ok = r.brute >= TARGET && r.dict >= TARGET;
+    if (ok) strong++;
+    el.classList.toggle("good", ok && !dup[i]);
+    el.classList.toggle("bad", !ok);
+    el.classList.toggle("dup", dup[i]);
+    $("ap"+i).textContent = vals[i];
+    $("as"+i).textContent = ok ? "regge · " + fmt(r.dict) : (r.weak[0] || "troppo corta") + " · " + fmt(r.dict);
+  });
+  const uniq = new Set(vals.filter(Boolean)).size;
+  $("status").innerHTML = `<span>password uniche <b>${uniq}/4</b></span><span>reggono 100 anni <b>${strong}/4</b></span>`;
+  const dupNames = ACC.filter((_,i) => dup[i]).map(d => `<b>${d.n}</b>`);
+  if (chosen < 4){
+    $("p2fb").innerHTML = `<div class="fb">Scegli una password per ognuno dei quattro account.</div>`;
+  } else if (dupNames.length){
+    $("p2fb").innerHTML = `<div class="fb b">Ponte acceso: ${dupNames.join(" e ")} hanno la stessa password. Una sola fuga da uno dei due siti fa cadere anche l'altro.</div>`;
+  } else if (strong < 4){
+    const weak = ACC.filter((d,i) => { const r = estimate(vals[i]); return !(r.brute >= TARGET && r.dict >= TARGET); });
+    $("p2fb").innerHTML = `<div class="fb">Ancora no: ${weak.map(d => "<b>"+d.n+"</b>").join(", ")} ${weak.length === 1 ? "cade" : "cadono"} prima dei cento anni. Leggi il motivo sotto la password e scegline una più lunga e meno prevedibile.</div>`;
+  } else {
+    $("p2fb").innerHTML = `<div class="fb g"><b>Quattro password diverse, tutte oltre i cento anni.</b> Ogni account ha la sua: se uno cade, gli altri restano in piedi. Ma chi riesce a ricordarsi quattro stringhe così? Ci pensa lo sportello 04.<div class="row"><button id="to3">Sportello 03 →</button></div></div>`;
+    $("to3").onclick = () => go(2);
+    puzzleDone = true;
+    $("accts").querySelectorAll("select").forEach(x => x.disabled = true);
+    $("hint2").classList.add("hidden");
+    unlock(1);
+  }
+}
+renderAccts();
+
+/* ---------------- sportello 03 · domande segrete ---------------- */
+const RANS = ["briciola","faenza","galilei"];
+$("rcheck").onclick = () => {
+  const n = RANS.filter((a,i) => $("rq"+i).value.toLowerCase().includes(a)).length;
+  if (n < 3){ $("rfb").innerHTML = `<div class="fb b">${n}/3 risposte trovate. Rileggi il profilo: le informazioni ci sono tutte.</div>`; return; }
+  const O = [
+   { t:"Briciola, il nome vero: così non lo dimentico.", e:"È proprio quello che ha fatto Elia: chi guarda il suo profilo trova la risposta in pochi secondi." },
+   { t:"Briciola1985!, aggiungendo numeri e simbolo.", e:"Chi attacca prova subito il nome con anni e simboli. Aggiungere qualche carattere non basta, perché la base resta il nome vero." },
+   { t:"Cactus-Violino-47: una risposta falsa, che non c'entra con me, e che conservo in un posto sicuro.", ok:1, e:"Esatto. Una risposta inventata non si trova su nessun profilo, perché non è vera. La domanda diventa una seconda password: non serve ricordarla, basta conservarla bene (lo vedrai nello sportello 04)." },
+   { t:"Il nome di un altro animale che ho avuto.", e:"È ancora un dato vero della tua vita: prima o poi qualcuno l'ha visto, o lo trova con un po' di ricerca." }
+  ];
+  $("rfb").innerHTML = `<div class="fb b"><b>Account aperto.</b> Hai recuperato l'accesso senza conoscere la password: era tutto nel profilo pubblico.</div><h2 style="margin-top:16px">Come si chiude questa porta?</h2><p>Elia deve scegliere la risposta a «Nome del tuo primo animale?». Quale scelta rende inutile il suo profilo social?</p><div id="ro">${O.map((o,i) => `<label class="op" data-i="${i}">${o.t}</label>`).join("")}</div><div id="rf2"></div>`;
+  $("ro").onclick = e => {
+    const l = e.target.closest(".op"); if (!l || $("ro").dataset.d) return;
+    const o = O[+l.dataset.i];
+    if (o.ok){
+      $("ro").dataset.d = 1; l.classList.add("right");
+      $("rf2").innerHTML = `<div class="fb g">✔ ${o.e}<div class="row"><button id="to4">Sportello 04 →</button></div></div>`;
+      unlock(2); $("to4").onclick = () => go(3);
+    } else {
+      l.classList.add("wrong"); l.style.pointerEvents = "none";
+      $("rf2").innerHTML = `<div class="fb b">✖ ${o.e}</div>`;
+    }
+  };
+};
+
+/* ---------------- sportello 04 · dove tieni le password ---------------- */
+const ST = [
+ { t:"Un file «password.txt» sul desktop del computer.", s:0, e:"Chiunque apra il computer, o un malware, lo legge in chiaro. Il nome stesso dice a un ladro cosa cercare." },
+ { t:"Un gestore di password con una password principale lunga e mai usata altrove.", s:1, e:"È la soluzione consigliata: le password sono cifrate e tu ne ricordi una sola." },
+ { t:"Un post-it attaccato al monitor, in un ufficio dove entrano altre persone.", s:0, e:"Chi passa può fotografarlo. Un foglietto è accettabile solo in un posto chiuso e privato." },
+ { t:"La password principale del gestore uguale a quella della posta.", s:0, e:"Se la posta viene violata, cade anche il gestore, e con lui tutto il resto. La principale va usata solo lì." },
+ { t:"Un quaderno chiuso a chiave a casa, mai portato in giro.", s:1, e:"Accettabile se resta in un posto privato: nessun hacker lo vede online. È meno comodo e senza copia di riserva." },
+ { t:"Le note del telefono, che si aprono senza blocco schermo.", s:0, e:"Chi trova il telefono sbloccato, o lo apre per un attimo, legge tutto. Il blocco schermo è il minimo, ma le note non sono cifrate come un gestore." }
+];
+const sdone = ST.map(() => false);
+$("stor").innerHTML = ST.map((x,i) => `<div class="sitem" id="si${i}"><p>${x.t}</p><div class="sb"><button class="small" data-i="${i}" data-a="1">Sicura</button><button class="small ghost" data-i="${i}" data-a="0">Rischiosa</button></div><div class="ex" id="se${i}"></div></div>`).join("");
+$("stor").onclick = e => {
+  const b = e.target.closest("button"); if (!b) return;
+  const i = +b.dataset.i;
+  if (sdone[i]) return;
+  const x = ST[i];
+  if (+b.dataset.a === x.s){
+    sdone[i] = true; $("si"+i).classList.add("right");
+    $("se"+i).innerHTML = "✔ " + x.e;
+    $("si"+i).querySelector(".sb").remove();
+    if (sdone.every(Boolean)){
+      $("sfb").innerHTML = `<div class="fb g"><b>Tutte classificate.</b> Regola da portarti via: un gestore al posto della memoria, e una sola password principale forte.<div class="row"><button id="to5">Ultimo sportello →</button></div></div>`;
+      unlock(3); $("to5").onclick = () => go(4);
+    }
+  } else {
+    $("se"+i).innerHTML = "✖ Non è così. Rifletti: " + (x.s ? "chi potrebbe leggerla e quanto sarebbe facile?" : "chi potrebbe vederla o rubarla?");
+  }
+};
+
+/* ---------------- sportello 05 · 2FA ---------------- */
+const Q = [
+ { h:"L'attaccante ha la tua password. Con la 2FA attiva, cosa succede?",
+   o:[
+    { t:"Entra lo stesso: la password è la chiave.", e:"Con la 2FA la password da sola non apre: serve anche il secondo fattore, che l'attaccante non ha." },
+    { t:"Non entra: gli manca il secondo fattore.", ok:1, e:"Esatto. La password rubata diventa inutile se manca il codice o la chiave fisica. È il senso stesso della 2FA." },
+    { t:"Entra solo dal telefono.", e:"Il tipo di dispositivo non conta: conta il secondo fattore." }
+   ]},
+ { h:"Quale di questi NON è un secondo fattore?",
+   o:[
+    { t:"Un'impronta digitale.", e:"L'impronta è qualcosa che sei: è un fattore valido, e anche comodo." },
+    { t:"Una chiave fisica.", e:"La chiave è qualcosa che hai: è un fattore valido, tra i più solidi." },
+    { t:"La password.", ok:1, e:"Esatto. La password è il primo fattore, qualcosa che sai. Un secondo fattore deve essere di tipo diverso, altrimenti non aggiunge nessuna protezione." },
+    { t:"Il codice dell'app sul telefono.", e:"Il codice a tempo dipende dal telefono, che è qualcosa che hai: è un fattore valido." }
+   ]},
+ { h:"Qual è il secondo fattore più resistente al phishing?",
+   o:[
+    { t:"Il codice ricevuto via SMS.", e:"Meglio di niente, ma un finto sito può chiedertelo e usarlo subito. È il metodo più attaccabile." },
+    { t:"Una chiave fisica o una passkey.", ok:1, e:"Esatto. La chiave verifica il sito vero prima di rispondere: non si può dettare al telefono e non funziona su un sito clone." },
+    { t:"Il codice a tempo dell'app.", e:"Buono, molto meglio dell'SMS, ma un finto sito può ancora convincerti a digitarlo. La chiave fisica resiste meglio." },
+    { t:"Un codice inviato per email.", e:"L'email non è un secondo fattore sicuro: se l'attaccante ha la casella, ha anche il codice." }
+   ]},
+ { h:"Ti arriva un codice di verifica che non hai richiesto. Cosa significa?",
+   o:[
+    { t:"Niente: è un errore del sito.", e:"Non è un errore. Un codice che non hai chiesto significa che qualcuno sta provando a entrare e conosce già la tua password: il secondo fattore lo ha fermato." },
+    { t:"Qualcuno ha la mia password e sta provando a entrare: la cambio subito.", ok:1, e:"Esatto. Quel codice è un allarme: la password è compromessa e la 2FA ha fatto il suo lavoro. Cambiala e controlla i dispositivi collegati." },
+    { t:"Devo dirlo a chi me lo chiede al telefono.", e:"Il codice non si comunica a nessuno: chi lo chiede sta cercando di superare il secondo fattore." }
+   ]},
+ { h:"Hai attivato la 2FA. Il telefono si rompe e devi entrare da un altro dispositivo. Cosa dovevi fare prima?",
+   o:[
+    { t:"Niente: basta la password.", e:"Senza il secondo fattore non entri: la password da sola non basta più, ed è esattamente il suo scopo." },
+    { t:"Salvare i codici di recupero in un posto sicuro.", ok:1, e:"Esatto. I codici di recupero sono l'unica via d'ingresso se perdi il telefono o l'app. Si stampano o si salvano prima, non quando serve." },
+    { t:"Chiedere i codici al gestore di password.", e:"Il gestore conserva le password, non i codici della 2FA: sono cose diverse." },
+    { t:"Disattivare la 2FA appena possibile.", e:"Disattivarla toglie la protezione più efficace proprio quando serve. La soluzione è avere un modo di recupero, non rinunciare al secondo fattore." }
+   ]},
+ { h:"Un sito offre la 2FA solo via SMS. Cosa fai?",
+   o:[
+    { t:"Non la attivo: l'SMS non è sicuro.", e:"Meglio di niente: l'SMS è il metodo più debole, ma ferma comunque molti attacchi. Rifiutarlo lascia la porta aperta." },
+    { t:"La attivo comunque, e se posso scelgo app o chiave.", ok:1, e:"Esatto. La 2FA via SMS è meglio di nessuna 2FA. App o chiave sono più solide, ma la priorità è avere un secondo fattore." },
+    { t:"La attivo solo se me la chiede la banca.", e:"La 2FA serve su tutti gli account importanti, non solo su quello che te la propone." }
+   ]}
+];
+let qi = 0;
+function showQ(){
+  const q = Q[qi];
+  const order = q.o.map(x => ({ x, k:Math.random() })).sort((a,b) => a.k - b.k).map(o => o.x);
+  $("qh").textContent = q.h;
+  $("qn").textContent = (qi+1) + " / " + Q.length;
+  $("dots").innerHTML = Q.map((_,i) => `<i class="${i < qi ? "ok" : i === qi ? "on" : ""}"></i>`).join("");
+  $("opts3").innerHTML = order.map((o,i) => `<label class="op" data-i="${i}">${o.t}</label>`).join("");
+  delete $("opts3").dataset.done;
+  $("fq").innerHTML = "";
+  $("opts3").onclick = e => {
+    const l = e.target.closest(".op"); if (!l || $("opts3").dataset.done) return;
+    const o = order[+l.dataset.i];
+    if (o.ok){
+      $("opts3").dataset.done = "1";
+      l.classList.add("right");
+      const last = qi === Q.length - 1;
+      $("fq").innerHTML = `<div class="fb g">✔ ${o.e}${last ? "" : ""}<div class="row"><button id="goNext">${last ? "Chiudi lo sportello →" : "Prossima domanda →"}</button></div></div>`;
+      $("goNext").onclick = () => {
+        if (last){ unlock(4); finish(); }
+        else { qi++; showQ(); scrollTo(0,0); }
+      };
+    } else {
+      l.classList.add("wrong");
+      l.style.pointerEvents = "none";
+      $("fq").innerHTML = `<div class="fb b">✖ <b>Sbagliato.</b> ${o.e} Torna alla spiegazione e rileggi il punto che ti serve.<div class="row"><button id="back" class="ghost">Rileggi la spiegazione →</button></div></div>`;
+      $("back").onclick = () => {
+        $("fq").innerHTML = "";
+        $("qwrap").classList.add("hidden");
+        $("expl").classList.remove("hidden");
+        $("capito").textContent = "Ho riletto, riprovo →";
+        scrollTo(0,0);
+      };
+    }
+  };
+}
+$("capito").onclick = () => {
+  $("expl").classList.add("hidden");
+  $("qwrap").classList.remove("hidden");
+  showQ();
+  scrollTo(0,0);
+};
+function finish(){
+  document.querySelector(".pin").classList.add("hidden");
+  document.querySelector(".cabinet").classList.add("hidden");
+  $("report").classList.remove("hidden");
+  scrollTo(0,0);
+}
+
+/* ---------------- modulo ---------------- */
+if (FORM_URL.startsWith("http")) $("lock").href = FORM_URL;
+else { $("warn").classList.remove("hidden"); $("lock").onclick = e => e.preventDefault(); }
+</script>
+</body>
+</html>
